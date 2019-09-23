@@ -6,11 +6,12 @@ header_Jenny = readcfg.header_Jenny
 url = readcfg.url
 
 
-def ifttt_update():
+def ifttt_update(linkageId, name, positionId):
     url_ = url + "/app/v1.0/lumi/ifttt/update"
     json_ = {
-        "name": "test-ifttt",
-        "positionId": "real1.615940701625851904",
+        "linkageId": linkageId,
+        "name": name,
+        "positionId": positionId,
         "conditions":
             {
                 "relation": 0,

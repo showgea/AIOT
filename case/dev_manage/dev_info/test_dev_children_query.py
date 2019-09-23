@@ -5,6 +5,7 @@ from config import readcfg
 did_Gary_hub = readcfg.did_Gary_hub
 did_Gary_cube = readcfg.did_Gary_cube
 did_Jenny = readcfg.did_Jenny_hub
+did_wrong = readcfg.did_wrong
 
 
 class TestDevChildrenQuery(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestDevChildrenQuery(unittest.TestCase):
 
     def test_dev_children_query_02(self):
         """测试查看设备id错误或不存在"""
-        result = dev_children_query(did_Gary_hub.replace("2", "3"))
+        result = dev_children_query(did_wrong)
         self.assertIn('"code":706', result.text)
 
     def test_dev_children_query_03(self):

@@ -6,7 +6,7 @@ header_Jenny = readcfg.header_Jenny
 url = readcfg.url
 
 
-def res_history_aggr_query_new(subjectId, attrs, dimensionType, startTime, endTime,startIndex=None,size=None,aggrType=None):
+def res_history_aggr_query_new(subjectId, attrs, dimensionType, startTime, endTime, startIndex=None, size=None, aggrType=None):
     url_ = url + "/app/v1.0/lumi/res/history/aggr/query/new"
     json_ = {
         "subjectId": subjectId,

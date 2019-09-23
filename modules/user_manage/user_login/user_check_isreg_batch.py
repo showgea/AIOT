@@ -6,7 +6,7 @@ header = readcfg.header
 url = readcfg.url
 
 
-def user_check_isreg_batch(accountList=[]):
+def user_check_isreg_batch(accountList):
     url_ = url + "/app/v1.0/lumi/user/check/isreg/batch"
     json_ = {
         "accountList": accountList

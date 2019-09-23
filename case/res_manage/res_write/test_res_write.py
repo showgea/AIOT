@@ -4,6 +4,7 @@ from config import readcfg
 
 subjectId_Gary = readcfg.subjectId_Gary_hub
 subjectId_Jenny = readcfg.subjectId_Jenny
+subjectId_wrong = readcfg.subjectId_wrong
 data = {"corridor_light_status": 1, "brightness_level": 25}
 
 
@@ -18,7 +19,7 @@ class TestResWrite(unittest.TestCase):
 
     def test_res_write_02(self):
         """测试id错误或不存在"""
-        result = res_write(subjectId_Gary.replace("1", "2"), data)
+        result = res_write(subjectId_wrong, data)
         self.assertIn('"code":755', result.text)
 
     def test_res_write_03(self):

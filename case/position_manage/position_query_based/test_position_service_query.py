@@ -4,11 +4,12 @@ from config import readcfg
 
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
+positionId_wrong = readcfg.positionId_wrong
 serviceTypes = ["S_SENSOR_CUBE", "S_SENSOR_PRESSURE", "S_SENSOR_TEMPERATURE", "S_SENSOR_HUMIDITY", "S_CORRIDOR_LIGHT"]
 subjectModels = ["lumi.gateway.aqhm01", "lumi.weather.v1", "lumi.sensor_cube.aqgl01"]
 access = "rw"
-size = 10
-startIndex = 0
+size = readcfg.size
+startIndex = readcfg.startIndex
 
 
 class TestPositionServiceQuery(unittest.TestCase):
@@ -23,7 +24,7 @@ class TestPositionServiceQuery(unittest.TestCase):
 
     def test_position_service_query_02(self):
         """测试查询位置错误或不存在"""
-        result = position_service_query(positionId_Gary.replace("2", "3"), serviceTypes, size, startIndex, subjectModels,
+        result = position_service_query(positionId_wrong, serviceTypes, size, startIndex, subjectModels,
                                         labels=None, access=access)
         self.assertIn('"code":710', result.text)
 

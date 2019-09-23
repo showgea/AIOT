@@ -2,10 +2,9 @@ import unittest
 from modules.dev_manage.dev_bind.dev_connect_subdevice_start import *
 from config import readcfg
 
-positionId_Gary = readcfg.positionId_real1_Gary
-positionId_Jenny = readcfg.positionId_real1_Jenny
 did_Gary = readcfg.did_Gary_hub
 did_Jenny = readcfg.did_Jenny_hub
+did_wrong = readcfg.did_wrong
 
 
 class TestDevConnectSubDeviceStart(unittest.TestCase):
@@ -20,7 +19,7 @@ class TestDevConnectSubDeviceStart(unittest.TestCase):
 
     def test_dev_connect_subdevice_start_02(self):
         """测试设备id错误或不存在"""
-        result = dev_connect_subdevice_start(did_Gary.replace("1", "2"), effectTime=None, installCode=None)
+        result = dev_connect_subdevice_start(did_wrong, effectTime=None, installCode=None)
         self.assertIn('"code":706', result.text)
 
     def test_dev_connect_subdevice_start_03(self):

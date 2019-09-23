@@ -1,13 +1,12 @@
 import unittest
 from modules.ifttt_manage.ifttt_config.ifttt_linkage_copy import *
-from common.get_result_db import get_result_from_sql
 from config import readcfg
 
 linkage_id_Gary = readcfg.linkageId_Gary
 linkage_id_wrong = readcfg.linkageId_wrong
 linkage_id_Jenny = readcfg.linkageId_Jenny
 sql = readcfg.sql_linkageId
-name = "test-ifttt5"
+name = readcfg.ifttt_name
 
 
 class TestIftttRename(unittest.TestCase):

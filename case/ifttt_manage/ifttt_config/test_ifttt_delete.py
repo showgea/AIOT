@@ -1,11 +1,12 @@
 import unittest
 from modules.ifttt_manage.ifttt_config.ifttt_delete import *
-from common.get_result_db import get_result_from_sql
+from common.get_result_db import get_result_from_sql, get_all_result_from_sql
 from config import readcfg
 
 sql = readcfg.sql_linkageId
 sql_Jenny = readcfg.sql_linkageId_Jenny
 linkageRule = readcfg.linkageRule
+linkageId_wrong = readcfg.linkageId_wrong
 
 
 class TestIftttDelete(unittest.TestCase):
@@ -14,17 +15,19 @@ class TestIftttDelete(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
-        cls.linkageId = get_result_from_sql(sql)[0]
+        cls.linkageId = get_all_result_from_sql(sql)
         cls.linkageId_Jenny = get_result_from_sql(sql_Jenny)[0]
 
     def test_ifttt_delete_01(self):
         """测试删除联动"""
-        result = ifttt_delete(self.linkageId, linkageRule)
-        self.assertIn('"code":0', result.text)
+        for i in self.linkageId:
+            print(i[0])
+            result = ifttt_delete(i[0], linkageRule)
+            self.assertIn('"code":0', result.text)
 
     def test_ifttt_delete_02(self):
         """测试删除联动id错误或不存在"""
-        result = ifttt_delete(self.linkageId + "1", linkageRule)
+        result = ifttt_delete(linkageId_wrong, linkageRule)
         self.assertIn('"code":707', result.text)
 
     def test_ifttt_delete_03(self):

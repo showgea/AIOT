@@ -4,6 +4,7 @@ from config import readcfg
 
 did_Gary = readcfg.did_Gary_unbind
 did_Jenny = readcfg.did_Jenny_hub
+did_wrong = readcfg.did_wrong
 unbindRule = "0000"
 
 
@@ -19,7 +20,7 @@ class TestDevUnBind(unittest.TestCase):
 
     def test_dev_unbind_02(self):
         """测试设备id错误或不存在"""
-        result = dev_unbind(did_Gary.replace("1", "2"))
+        result = dev_unbind(did_wrong)
         self.assertIn('"code":706', result.text)
 
     def test_dev_unbind_03(self):

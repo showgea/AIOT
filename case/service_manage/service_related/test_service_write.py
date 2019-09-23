@@ -1,6 +1,5 @@
 import unittest
 from modules.service_manage.service_related.service_write import *
-from config import readcfg
 
 serviceId_cube = readcfg.serviceId_cube
 serviceId_wrong = readcfg.serviceId_wrong

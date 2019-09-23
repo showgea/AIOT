@@ -1,6 +1,6 @@
 import unittest
 from modules.ifttt_manage.ifttt_scene_config.ifttt_scene_delete import *
-from common.get_result_db import get_result_from_sql
+from common.get_result_db import get_result_from_sql, get_all_result_from_sql
 
 sql = readcfg.sql_sceneId
 sql_Jenny = readcfg.sql_sceneId_Jenny
@@ -14,13 +14,15 @@ class TestIftttSceneDelete(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
-        cls.sceneId = get_result_from_sql(sql)[0]
+        cls.sceneId = get_all_result_from_sql(sql)
         cls.sceneId_Jenny = get_result_from_sql(sql_Jenny)[0]
 
     def test_ifttt_scene_delete_01(self):
         """测试删除场景"""
-        result = ifttt_scene_delete(self.sceneId, sceneRule)
-        self.assertIn('"code":0', result.text)
+        for i in self.sceneId:
+            print(i[0])
+            result = ifttt_scene_delete(i[0], sceneRule)
+            self.assertIn('"code":0', result.text)
 
     def test_ifttt_scene_delete_02(self):
         """测试删除场景id错误或不存在"""

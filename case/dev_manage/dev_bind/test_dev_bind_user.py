@@ -6,6 +6,7 @@ positionId_Gary = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
 did_Gary = readcfg.did_Gary_hub
 did_Jenny = readcfg.did_Jenny_hub
+did_wrong = readcfg.did_wrong
 # 0：不发网关  1：发网关，默认为1
 isSendGateway = 1
 
@@ -22,7 +23,7 @@ class TestDevBindUser(unittest.TestCase):
 
     def test_dev_bind_user_02(self):
         """测试网关id错误或不存在"""
-        result = dev_bind_user(did_Gary.replace("1", "2"), positionId_Gary, isSendGateway)
+        result = dev_bind_user(did_wrong, positionId_Gary, isSendGateway)
         self.assertIn('"code":601', result.text)
 
     def test_dev_bind_user_03(self):

@@ -1,12 +1,11 @@
 import unittest
 import json
 from modules.service_manage.service_attribute.service_name_fuzzy import *
-from config import readcfg
 
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
 positionId_wrong = readcfg.positionId_wrong
-name = "灯"
+name = readcfg.service_name_fuzzy
 
 
 class TestServiceNameFuzzy(unittest.TestCase):
@@ -17,7 +16,8 @@ class TestServiceNameFuzzy(unittest.TestCase):
     def test_service_name_fuzzy_01(self):
         """测试serviceName模糊查询"""
         result = service_name_fuzzy(positionId_Gary, name)
-        self.assertIn('"code":0', result.text)
+        length = len(json.loads(result.text)["result"])
+        self.assertGreater(length, 1, "查询结果长度为：%s" % length)
 
     def test_service_name_fuzzy_02(self):
         """测试位置id错误或不存在"""

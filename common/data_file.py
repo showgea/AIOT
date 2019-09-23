@@ -5,8 +5,7 @@ import string
 random_string = ''.join(random.sample(string.ascii_letters, 4)) + str(int(time.time()))
 random_lower_string = ''.join(random.sample(string.ascii_lowercase, 4)) + str(int(time.time()))
 random_upper_string = ''.join(random.sample(string.ascii_letters, 16))
-random_repository_name = ''.join(random.sample(string.ascii_letters, 8)) +\
-                         ''.join(random.sample(string.digits, 4))
+random_4digits = ''.join(random.sample(string.digits, 4))
 
 
 phone_pre = ['134', '135', '136', '137', '138', '139', '150', '151', '152', '158', '159', '157', '182', '187', '188',
@@ -35,5 +34,5 @@ def phone_num(num):
 
 
 if __name__ == '__main__':
-    print(random_string, random_lower_string, random_phone, random_repository_name)
+    print(random_4digits)
     # print(random_phone)

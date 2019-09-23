@@ -1,10 +1,9 @@
 import unittest
-import json
 from modules.user_manage.user_login.user_bind import *
 
-account_phone = "18682246872"
-account_email = "guobing.tang@aqara.com"
-authCode = "123456"
+account_phone = readcfg.account_Gary
+account_email = readcfg.account_mail_Gary
+authCode = readcfg.authCode_wrong
 countryCode = "+86"
 
 

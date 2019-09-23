@@ -6,11 +6,11 @@ header_Jenny = readcfg.header_Jenny
 url = readcfg.url
 
 
-def ifttt_create():
+def ifttt_create(name, positionId):
     url_ = url + "/app/v1.0/lumi/ifttt/create"
     json_ = {
-        "name": "test-ifttt",
-        "positionId": "real1.615940701625851904",
+        "name": name,
+        "positionId": positionId,
         "conditions":
             {
                 "relation": 0,

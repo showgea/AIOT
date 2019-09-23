@@ -2,8 +2,10 @@ import unittest
 import json
 from modules.positon_manage.position_based_query.position_device_assign_query import *
 
-dids = "lumi.158d0003930b2a,lumi.158d00026e9e32"
-dids_Jenny = "virtual.38136362841914"
+did_Gary_hub = readcfg.did_Gary_hub
+did_Gary_cube = readcfg.did_Gary_cube
+did_Jenny_hub = readcfg.did_Jenny_hub
+did_wrong = readcfg.did_wrong
 
 
 class TestPositionDeviceAssignQuery(unittest.TestCase):
@@ -13,19 +15,19 @@ class TestPositionDeviceAssignQuery(unittest.TestCase):
 
     def test_position_device_assign_query_01(self):
         """测试查询多个设备属于的位置"""
-        result = position_device_assign_query(dids)
+        result = position_device_assign_query(did_Gary_hub + ',' + did_Gary_cube)
         length = len(json.loads(result.text)["result"])
         self.assertEqual(2, length)
 
     def test_position_device_assign_query_02(self):
         """测试查询多个设备中有一个设备id错误或不存在"""
-        result = position_device_assign_query(dids + "1")
+        result = position_device_assign_query(did_Gary_hub + ',' + did_wrong)
         length = len(json.loads(result.text)["result"])
         self.assertEqual(1, length)
 
     def test_position_device_assign_query_03(self):
         """测试查询多个设备id都错误或不存在"""
-        result = position_device_assign_query(dids.replace("1", "2"))
+        result = position_device_assign_query(did_wrong + ',' + did_wrong)
         self.assertIn('"code":706', result.text)
 
     def test_position_device_assign_query_04(self):
@@ -35,7 +37,7 @@ class TestPositionDeviceAssignQuery(unittest.TestCase):
 
     def test_position_device_assign_query_05(self):
         """测试查询其他用户下的设备"""
-        result = position_device_assign_query(dids_Jenny)
+        result = position_device_assign_query(did_Jenny_hub)
         self.assertIn('"code":706', result.text)
 
 

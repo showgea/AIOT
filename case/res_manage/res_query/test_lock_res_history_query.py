@@ -4,11 +4,12 @@ from config import readcfg
 
 subjectId_Gary = readcfg.subjectId_Gary_hub
 subjectId_Jenny = readcfg.subjectId_Jenny
+subjectId_wrong = readcfg.subjectId_wrong
+startTime = readcfg.startTime
+endTime = readcfg.endTime
+startIndex = readcfg.startIndex
+size = readcfg.size
 attrs = "argb_value"
-startTime = "1564804800000"
-endTime = "1567137600000"
-startIndex = 0
-size = 100
 
 
 class TestLockResHistoryQuery(unittest.TestCase):
@@ -23,7 +24,7 @@ class TestLockResHistoryQuery(unittest.TestCase):
 
     def test_lock_res_history_query_02(self):
         """测试查询id错误或不存在"""
-        result = lock_res_history_query(subjectId_Gary.replace("0", "1"), attrs, startTime, endTime, startIndex, size)
+        result = lock_res_history_query(subjectId_wrong, attrs, startTime, endTime, startIndex, size)
         self.assertIn('"code":706', result.text)
 
     def test_lock_res_history_query_03(self):
@@ -58,25 +59,30 @@ class TestLockResHistoryQuery(unittest.TestCase):
 
     def test_lock_res_history_query_09(self):
         """测试开始时间大于结束时间"""
-        result = lock_res_history_query(subjectId_Gary, attrs, startTime, startTime.replace("4", "3"), startIndex, size)
+        result = lock_res_history_query(subjectId_Gary, attrs, startTime.replace("1", "2"), startTime, startIndex, size)
         self.assertIn('"code":729', result.text)
 
     def test_lock_res_history_query_10(self):
-        """测试startIndex为空"""
+        """测试请求不传参数startIndex"""
         result = lock_res_history_query(subjectId_Gary, attrs, startTime, endTime, startIndex=None, size=size)
         self.assertIn('"code":0', result.text)
 
     def test_lock_res_history_query_11(self):
-        """测试size为空"""
+        """测试请求不传参数size"""
         result = lock_res_history_query(subjectId_Gary, attrs, startTime, endTime, startIndex, size=None)
         self.assertIn('"code":0', result.text)
 
     def test_lock_res_history_query_12(self):
+        """测试请求不传参数startIndex、size"""
+        result = lock_res_history_query(subjectId_Gary, attrs, startTime, endTime, startIndex=None, size=None)
+        self.assertIn('"code":0', result.text)
+
+    def test_lock_res_history_query_13(self):
         """测试size为0"""
         result = lock_res_history_query(subjectId_Gary, attrs, startTime, endTime, startIndex, size=0)
         self.assertIn('"code":302', result.text)
 
-    def test_lock_res_history_query_13(self):
+    def test_lock_res_history_query_14(self):
         """测试size为1"""
         result = lock_res_history_query(subjectId_Gary, attrs, startTime, endTime, startIndex, size)
         self.assertIn('"code":0', result.text)

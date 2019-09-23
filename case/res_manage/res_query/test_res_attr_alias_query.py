@@ -4,6 +4,7 @@ from config import readcfg
 
 subjectId_Gary = readcfg.positionId_real1_Gary
 subjectId_Jenny = readcfg.positionId_real1_Jenny
+subjectId_wrong = readcfg.positionId_wrong
 attrs = ["argb_value"]
 
 
@@ -19,7 +20,7 @@ class TestResAttrAliasQuery(unittest.TestCase):
 
     def test_res_attr_alias_query_02(self):
         """测试查询id错误或不存在"""
-        result = res_attr_alias_query(subjectId_Gary.replace("1", "2"), attrs)
+        result = res_attr_alias_query(subjectId_wrong, attrs)
         self.assertIn('"code":755', result.text)
 
     def test_res_attr_alias_query_03(self):

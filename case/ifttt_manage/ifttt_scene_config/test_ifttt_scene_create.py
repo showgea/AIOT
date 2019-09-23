@@ -9,7 +9,7 @@ positionId_wrong = readcfg.positionId_wrong
 subjectId_Gary_hub = readcfg.subjectId_Gary_hub
 subjectId_Jenny = readcfg.subjectId_Jenny
 subjectId_wrong = readcfg.subjectId_wrong
-name = "test-scene"
+name = readcfg.scene_name
 
 
 class TestIftttSceneCreate(unittest.TestCase):

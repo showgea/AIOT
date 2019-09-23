@@ -31,11 +31,16 @@ class TestServiceAttributeQuery(unittest.TestCase):
         self.assertEqual(1, length)
 
     def test_service_attribute_query_04(self):
+        """测试读取多个属性中属性id都错误或不存在"""
+        result = service_attribute_query(serviceId_wrong + "," + serviceId_wrong)
+        self.assertIn('"code":709', result.text)
+
+    def test_service_attribute_query_05(self):
         """测试读取单个属性id错误或不存在"""
         result = service_attribute_query(serviceId_wrong)
         self.assertIn('"code":709', result.text)
 
-    def test_service_attribute_query_05(self):
+    def test_service_attribute_query_06(self):
         """测试读取属性id为空"""
         result = service_attribute_query("")
         self.assertIn('"code":302', result.text)

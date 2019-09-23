@@ -1,12 +1,10 @@
 import unittest
-import json
 from modules.service_manage.service_related.service_update import *
-from config import readcfg
 
 serviceId_on = readcfg.serviceId_on
 serviceId_wrong = readcfg.serviceId_wrong
 name = "开夜灯"
-iconId = "testiconId"
+iconId = readcfg.iconId
 
 
 class TestServiceUpdate(unittest.TestCase):

@@ -1,9 +1,9 @@
 import unittest
 from modules.user_manage.user_login.user_check_isreg import *
-from config import readcfg
 
 account_Gary = readcfg.account_Gary
 account_mail_Gary = readcfg.account_mail_Gary
+account_wrong = readcfg.account_wrong
 
 
 class TestUserCheckIsreg(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestUserCheckIsreg(unittest.TestCase):
 
     def test_user_check_isreg_03(self):
         """测试账户错误或不存在"""
-        result = user_check_isreg(account_Gary.replace("2", "1"))
+        result = user_check_isreg(account_wrong)
         isreg = json.loads(result.text)["result"]["isreg"]
         self.assertEqual(0, isreg)
 

@@ -27,5 +27,5 @@ def ifttt_delete(linkageId, linkageRule=None):
 
 
 if __name__ == '__main__':
-    result_main = ifttt_delete("L.620684744405655552")
+    result_main = ifttt_delete(" ")
     print(result_main.text)

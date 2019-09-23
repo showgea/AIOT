@@ -2,9 +2,10 @@ import unittest
 from modules.res_manage.res_query.res_query import *
 from config import readcfg
 
-subjectId_Gary = readcfg.subjectId_Gary_hub
+subjectId_Gary = readcfg.subjectId_Gary_cube
 subjectId_Jenny = readcfg.subjectId_Jenny
-options = "argb_value"
+subjectId_wrong = readcfg.subjectId_wrong
+options = "cube_status"
 
 
 class TestResQuery(unittest.TestCase):
@@ -13,13 +14,13 @@ class TestResQuery(unittest.TestCase):
     """
 
     def test_res_query_01(self):
-        """测试查询用户网关的当前资源"""
+        """测试查询用户魔方控制器的当前资源"""
         result = res_query(subjectId_Gary, options)
         self.assertIn('"code":0', result.text)
 
     def test_res_query_02(self):
         """测试查询设备Id错误或不存在的当前资源"""
-        result = res_query(subjectId_Gary.replace("1", "2"), options)
+        result = res_query(subjectId_wrong, options)
         self.assertIn('"code":755', result.text)
 
     def test_res_query_03(self):

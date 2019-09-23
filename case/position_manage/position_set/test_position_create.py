@@ -2,21 +2,20 @@ import unittest
 import json
 from modules.positon_manage.position_set.position_create import *
 from common.get_result_db import get_result_from_sql
-from config import readcfg
-
 
 positionType_0 = "0"
 positionType_1 = "1"
-positionName = "测试位置"
+positionName = readcfg.position_name
+position_virtual_name = readcfg.position_virtual_name
+position_timeZone_name = readcfg.position_timeZone_name
 parentPositionId = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
-timeZone = "+8"
-remark = "position remark"
+positionId_wrong = readcfg.positionId_wrong
+timeZone = readcfg.timeZone
+remark = readcfg.remark
+sql = readcfg.sql_position_create
+sql_timeZone = readcfg.sql_position_create_timeZone
 options = 0
-sql = "select position_id from iot_position where user_id='38715a6d7c0608f7.606065919364653057' " \
-              "ORDER BY create_time desc limit 1;"
-sql_timeZone = "select time_zone from iot_position where user_id='38715a6d7c0608f7.606065919364653057'" \
-      " ORDER BY create_time desc limit 1;"
 
 
 class TestPositionCreate(unittest.TestCase):
@@ -45,17 +44,17 @@ class TestPositionCreate(unittest.TestCase):
 
     def test_position_create_03(self):
         """测试创建位置时parentPositionId错误或不存在"""
-        result = position_create(positionType_1, positionName, parentPositionId.replace("4", "5"), timeZone, remark, options)
+        result = position_create(positionType_1, positionName, positionId_wrong, timeZone, remark, options)
         self.assertIn('"code":710', result.text)
 
     def test_position_create_04(self):
         """测试使用其他用户的位置为parentPositionId创建位置"""
-        result = position_create_jenny(positionType_1, positionName, parentPositionId, timeZone, remark, options)
+        result = position_create_jenny(positionType_1, positionName, positionId_Jenny, timeZone, remark, options)
         self.assertIn('"code":710', result.text)
 
     def test_position_create_05(self):
         """创建虚拟位置（positionType=0）"""
-        result = position_create(positionType_0, positionName=positionName + "虚拟位置", parentPositionId=None, timeZone=timeZone,
+        result = position_create(positionType_0, position_virtual_name, parentPositionId=None, timeZone=timeZone,
                                  remark=remark, options=options)
         position_id = json.loads(result.text)["result"]["positionId"]
         position_id_sql = get_result_from_sql(sql)[0]
@@ -70,12 +69,14 @@ class TestPositionCreate(unittest.TestCase):
 
     def test_position_create_07(self):
         """测试positionName为空"""
-        result = position_create(positionType_1, "", parentPositionId=None, timeZone=timeZone, remark=remark, options=options)
+        result = position_create(positionType_1, "", parentPositionId=None, timeZone=timeZone, remark=remark,
+                                 options=options)
         self.assertIn('"code":302', result.text)
 
     def test_position_create_08(self):
         """测试timeZone：-0.5"""
-        result = position_create(positionType_1, positionName="测试时区", parentPositionId=None, timeZone=-0.5, remark=remark, options=options)
+        result = position_create(positionType_1, position_timeZone_name, parentPositionId=None, timeZone="-0.5",
+                                 remark=remark, options=options)
         time_zone_sql = get_result_from_sql(sql_timeZone)[0]
         self.assertEqual("-0.5", time_zone_sql)
 

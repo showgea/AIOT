@@ -4,9 +4,10 @@ from config import readcfg
 
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
+positionId_wrong = readcfg.positionId_wrong
 model = " lumi.light.aqcn02"
-size = 10
-startIndex = 0
+size = readcfg.size
+startIndex = readcfg.startIndex
 
 
 class TestPositionGatewaySupport(unittest.TestCase):
@@ -21,7 +22,7 @@ class TestPositionGatewaySupport(unittest.TestCase):
 
     def test_position_gateway_support_02(self):
         """测试查询位置错误或不存在"""
-        result = position_gateway_support(positionId_Gary.replace("2", "3"), model, size, startIndex)
+        result = position_gateway_support(positionId_wrong, model, size, startIndex)
         self.assertIn('"code":710', result.text)
 
     def test_position_gateway_support_03(self):

@@ -1,11 +1,10 @@
 import unittest
 from modules.user_manage.user_login.user_authcode_login import *
-from config import readcfg
 from common.get_result_db import get_code
 
 account_Gary = readcfg.account_Gary
 account_mail_Gary = readcfg.account_mail_Gary
-authCode = "123456"
+authCode = readcfg.authCode_wrong
 isClearRedis = "true"
 
 
@@ -17,7 +16,7 @@ class TestUserAuthCodeLogin(unittest.TestCase):
         cls.authCode_phone = get_code()
 
     def test_user_authcode_login_01(self):
-        """测试手机号验证码登录"""
+        """测试验证码登录"""
         result = user_authcode_login(account_Gary, self.authCode_phone, isClearRedis)
         self.assertIn('"code":0', result.text)
 

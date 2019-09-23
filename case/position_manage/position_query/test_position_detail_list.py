@@ -5,6 +5,7 @@ from config import readcfg
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_room = readcfg.positionId_real2_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
+positionId_wrong = readcfg.positionId_wrong
 
 
 class TestPositionDetailList(unittest.TestCase):
@@ -34,7 +35,7 @@ class TestPositionDetailList(unittest.TestCase):
 
     def test_position_detail_list_05(self):
         """测试查询位置错误或不存在"""
-        result = position_detail_list(positionId_Gary.replace("4", "5"))
+        result = position_detail_list(positionId_wrong)
         self.assertIn('"code":710', result.text)
 
     def test_position_detail_list_06(self):

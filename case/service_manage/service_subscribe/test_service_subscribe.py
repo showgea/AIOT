@@ -1,6 +1,5 @@
 import unittest
 from modules.service_manage.service_subscribe.service_subscribe import *
-from config import readcfg
 
 serviceId_on = readcfg.serviceId_on
 serviceId_off = readcfg.serviceId_off

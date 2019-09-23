@@ -5,6 +5,7 @@ from config import readcfg
 
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
+positionId_wrong = readcfg.positionId_wrong
 
 
 class TestDevBindKey(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestDevBindKey(unittest.TestCase):
 
     def test_dev_bindkey_02(self):
         """测试id错误或不存在"""
-        result = dev_bindkey(positionId_Gary.replace("5", "6"))
+        result = dev_bindkey(positionId_wrong)
         self.assertIn('"code":710', result.text)
 
     def test_dev_bindkey_03(self):

@@ -1,9 +1,11 @@
 import unittest
+import json
 from modules.user_manage.user_login.user_login import *
-from config import readcfg
 
 account_Gary = readcfg.account_Gary
+account_wrong = readcfg.account_wrong
 password = readcfg.password
+user_id = readcfg.userId_Gary
 
 
 class TestUserLogin(unittest.TestCase):
@@ -12,11 +14,12 @@ class TestUserLogin(unittest.TestCase):
     def test_user_login_01(self):
         """测试正确用户名密码登录"""
         result = user_login(account_Gary, password)
-        self.assertIn('"code":0', result.text)
+        userId_login = json.loads(result.text)["result"]["userId"]
+        self.assertIn(user_id, userId_login)
 
     def test_user_login_02(self):
         """测试用户名错误"""
-        result = user_login(account_Gary.replace("2", "1"), password)
+        result = user_login(account_wrong, password)
         self.assertIn('"code":801', result.text)
 
     def test_user_login_03(self):

@@ -1,13 +1,8 @@
 import unittest
 from modules.positon_manage.position_set.position_delete import *
-from common.get_result_db import get_result_from_sql, get_all_result_from_sql
-from config import readcfg
+from common.get_result_db import get_all_result_from_sql
 
-
-sql_gary = "select position_id from iot_position where user_id='38715a6d7c0608f7.606065919364653057' " \
-              "ORDER BY create_time;"
-sql_jenny = "select position_id from iot_position where user_id='649952c246de69f5.564773671348994049' " \
-              "ORDER BY create_time desc limit 1;"
+sql_gary = readcfg.sql_position_delete
 
 
 class TestPositionDelete(unittest.TestCase):

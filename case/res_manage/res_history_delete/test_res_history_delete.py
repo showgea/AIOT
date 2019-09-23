@@ -4,6 +4,7 @@ from config import readcfg
 
 subjectId_Gary = readcfg.subjectId_Gary_hub
 subjectId_Jenny = readcfg.subjectId_Jenny
+subjectId_wrong = readcfg.subjectId_wrong
 
 
 class TestResHistoryDelete(unittest.TestCase):
@@ -18,7 +19,7 @@ class TestResHistoryDelete(unittest.TestCase):
 
     def test_res_history_delete_02(self):
         """测试id错误或不存在"""
-        result = res_history_delete(subjectId_Gary.replace("0", "1"))
+        result = res_history_delete(subjectId_wrong)
         self.assertIn('"code":706', result.text)
 
     def test_res_history_delete_03(self):

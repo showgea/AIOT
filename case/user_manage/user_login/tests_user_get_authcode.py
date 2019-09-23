@@ -15,7 +15,7 @@ class TestUserGetAuthCode(unittest.TestCase):
     def test_user_get_authcode_01(self):
         """测试手机获取验证码"""
         result = user_get_authcode(account_Gary, countryCode, authCodeType)
-        self.assertIn('"code":0', result.text)
+        self.assertIn('"code":817', result.text)
 
     def test_user_get_authcode_02(self):
         """测试邮箱获取验证码"""

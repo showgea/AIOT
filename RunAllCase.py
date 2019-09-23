@@ -6,7 +6,7 @@ from HTMLTestRunner_cn import HTMLTestRunner
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-
+# 设置保存报告名称和路径
 current_date = time.strftime("%Y-%m-%d", time.localtime())
 case_path = os.path.dirname(os.path.realpath(__file__))
 report_name = 'report-' + current_date + '.html'
@@ -14,8 +14,10 @@ report_path = os.path.dirname(os.path.realpath(__file__)) + '\\report\\' + repor
 
 
 def run_all_case():
-    # 获取当前文件夹路径
-    # 加载当前路径下所有以"test"开头的用例
+    """
+    1、获取当前文件夹路径
+    2、加载当前路径下所有以"test"开头的用例
+    """
     discovery = unittest.defaultTestLoader.discover(start_dir=case_path,
                                                     pattern="test*.py",
                                                     top_level_dir=None)
@@ -31,6 +33,9 @@ def run_all_case():
 
 
 def get_report():
+    """
+    获取最新报告
+    """
     path = os.path.dirname(os.path.realpath(__file__)) + '\\report\\'
     list_report = os.listdir(path)
     list_report.sort(key=lambda x: os.path.getmtime(os.path.join(path, x)))
@@ -40,7 +45,10 @@ def get_report():
 
 
 def send_mail(report):
-    # 定义邮箱服务器、端口、发送人、授权码、接收人
+    """
+    定义邮箱服务器、端口、发送人、授权码、接收人
+    """
+
     server = "smtp.163.com"
     port = 465
     sender = "tangguobing2019@163.com"
@@ -81,6 +89,5 @@ if __name__ == "__main__":
     run_all_case()
     # 获取最新邮件
     report_name = get_report()
-    # print(report_name)
     # 发送邮件
     send_mail(report_name)

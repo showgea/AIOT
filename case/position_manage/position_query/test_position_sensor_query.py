@@ -5,6 +5,7 @@ from config import readcfg
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_room = readcfg.positionId_real2_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
+positionId_wrong = readcfg.positionId_wrong
 
 
 class TestPositionSensorQuery(unittest.TestCase):
@@ -18,7 +19,7 @@ class TestPositionSensorQuery(unittest.TestCase):
 
     def test_position_sensor_query_02(self):
         """测试查询位置出错误或不存在"""
-        result = position_sensor_query(positionId_Gary + "1")
+        result = position_sensor_query(positionId_wrong)
         self.assertIn('"code":710', result.text)
 
     def test_position_sensor_query_03(self):

@@ -1,10 +1,12 @@
 import unittest
+import json
 from modules.user_manage.user_info.user_query_info_byauthcode import *
 from common.get_result_db import get_common_code
-from config import readcfg
 
 account_mail_Gary = readcfg.account_mail_Gary
-authCode = "123456"
+account_wrong = readcfg.account_wrong
+userId = readcfg.userId_Gary
+authCode = readcfg.authCode_wrong
 
 
 class TestUserQueryInfoByAuthCode(unittest.TestCase):
@@ -19,11 +21,12 @@ class TestUserQueryInfoByAuthCode(unittest.TestCase):
         """测试根据验证码及账号获取用户基本信息"""
         result = user_query_info_byauthcode(account_mail_Gary, self.authCode_email)
         # print(self.authCode_phone)
-        self.assertIn('"code":0', result.text)
+        userId_api = json.loads(result.text)["result"]["userId"]
+        self.assertEqual(userId, userId_api, "查询接口返回userId：%s" % userId_api)
 
     def test_user_query_info_byauthcode_02(self):
         """测试账号错误或不存在"""
-        result = user_query_info_byauthcode(account_mail_Gary.replace("n", "a"), authCode)
+        result = user_query_info_byauthcode(account_wrong, authCode)
         self.assertIn('"code":811', result.text)
 
     def test_user_query_info_byauthcode_03(self):

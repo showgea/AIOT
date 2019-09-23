@@ -1,20 +1,26 @@
 import unittest
 from modules.ifttt_manage.ifttt_config.ifttt_rename import *
+from common.get_result_db import get_result_from_sql
 from config import readcfg
 
 linkage_id_Gary = readcfg.linkageId_Gary
 linkage_id_wrong = readcfg.linkageId_wrong
 linkage_id_Jenny = readcfg.linkageId_Jenny
-name = "test-ifttt5"
+name = readcfg.ifttt_name
+sql = readcfg.sql_linkageId
 
 
 class TestIftttRename(unittest.TestCase):
     """
     重命名联动
     """
+    @classmethod
+    def setUpClass(cls):
+        cls.linkageId = get_result_from_sql(sql)[0]
+
     def test_ifttt_rename_01(self):
         """测试重命名联动"""
-        result = ifttt_rename(linkage_id_Gary, name)
+        result = ifttt_rename(self.linkageId, name)
         self.assertIn('"code":0', result.text)
 
     def test_ifttt_rename_02(self):

@@ -2,7 +2,7 @@ import unittest
 from modules.positon_manage.position_device_manage.position_device_transfer import *
 from config import readcfg
 
-deviceId = "lumi.158d0003930b2a"
+did_Gary_hub = readcfg.did_Gary_hub
 positionId_Gary = readcfg.positionId_real1_Gary
 
 
@@ -13,7 +13,7 @@ class TestPositionDeviceAssign(unittest.TestCase):
 
     def test_position_device_transfer_01(self):
         """测试网关设备转移实体顶级位置（跨家分配位置）"""
-        result = position_device_transfer(deviceId, positionId_Gary)
+        result = position_device_transfer(did_Gary_hub, positionId_Gary)
         self.assertIn('"code":735', result.text)
 
 

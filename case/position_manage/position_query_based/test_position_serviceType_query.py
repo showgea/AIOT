@@ -4,8 +4,9 @@ from config import readcfg
 
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
-size = 10
-startIndex = 0
+positionId_wrong = readcfg.positionId_wrong
+size = readcfg.size
+startIndex = readcfg.startIndex
 
 
 class TestPositionServiceTypeQuery(unittest.TestCase):
@@ -20,7 +21,7 @@ class TestPositionServiceTypeQuery(unittest.TestCase):
 
     def test_position_serviceType_query_02(self):
         """测试查询位置错误或不存在"""
-        result = position_serviceType_query(positionId_Gary.replace("2", "3"), size, startIndex)
+        result = position_serviceType_query(positionId_wrong, size, startIndex)
         self.assertIn('"code":710', result.text)
 
     def test_position_serviceType_query_03(self):

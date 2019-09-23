@@ -5,9 +5,10 @@ from config import readcfg
 positionId_Gary = readcfg.positionId_real1_Gary
 positionId_room = readcfg.positionId_real2_Gary
 positionId_Jenny = readcfg.positionId_real1_Jenny
+positionId_wrong = readcfg.positionId_wrong
 positionType = 1
-size = 100
-startIndex = 0
+size = readcfg.size
+startIndex = readcfg.startIndex
 
 
 class TestPositionQueryList(unittest.TestCase):
@@ -32,7 +33,7 @@ class TestPositionQueryList(unittest.TestCase):
 
     def test_position_query_list_04(self):
         """测试查询位置错误或不存在"""
-        result = position_query_list(positionId_Gary.replace("4", "5"), positionType, size, startIndex)
+        result = position_query_list(positionId_wrong, positionType, size, startIndex)
         self.assertIn('"code":710', result.text)
 
     def test_position_query_list_05(self):
@@ -42,7 +43,7 @@ class TestPositionQueryList(unittest.TestCase):
 
     def test_position_query_list_06(self):
         """测试查询位置positionType为0"""
-        result = position_query_list(positionId_Gary, 0, size, startIndex)
+        result = position_query_list(positionId_Gary, positionType=0, size=size, startIndex=startIndex)
         self.assertIn('"code":0', result.text)
 
     def test_position_query_list_07(self):

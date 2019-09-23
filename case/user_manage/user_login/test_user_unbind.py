@@ -1,10 +1,9 @@
 import unittest
 from modules.user_manage.user_login.user_unbind import *
-from config import readcfg
 
 account_Gary = readcfg.account_Gary
 account_mail_Gary = readcfg.account_mail_Gary
-authCode = "123456"
+authCode = readcfg.authCode_wrong
 countryCode = "+86"
 
 
@@ -23,7 +22,7 @@ class TestUserUnbind(unittest.TestCase):
 
     def test_user_unbind_03(self):
         """测试验证码不正确"""
-        result = user_unbind(account_Gary, authCode + "1")
+        result = user_unbind(account_Gary, authCode)
         self.assertIn('"code":820', result.text)
 
     def test_user_unbind_04(self):

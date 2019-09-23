@@ -14,11 +14,11 @@ aggrType = readcfg.aggrType
 
 class TestServiceAttributeHistoryAggrQuery(unittest.TestCase):
     """
-    基于service资源历史聚合结果查询（返回数据类型全部为string，返回小数点后5位）
+    基于service资源历史聚合结果查询
     """
 
     def test_service_attribute_history_aggr_query_new_01(self):
-        """测试基于service资源历史聚合结果查询（返回数据类型全部为string，返回小数点后5位）"""
+        """测试基于service资源历史聚合结果查询"""
         result = service_attribute_history_aggr_query_new(serviceId, dimensionType, startTime, endTime, startIndex,
                                                           size, aggrType)
         self.assertIn('"code":0', result.text)
